@@ -10,7 +10,7 @@
 ################################################################################################################################
 
 # set working directory
-setwd("C:/Users/David/Desktop/University/Sweave/Papers/ESURF_Drag_size_distribution/code_data")
+setwd("yourworkingdirectory")
 
 library(data.table) # for fread function, superior for importing large datasets
 library(pracma) # for detrend function
