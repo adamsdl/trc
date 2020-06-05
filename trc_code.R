@@ -10,7 +10,11 @@
 ################################################################################################################################
 
 # set working directory
-setwd("yourworkingdirectory")
+
+setwd("C:/Users/David/Desktop/University/Sweave/Papers/ESURF_Drag_size_distribution/code_data/standalone")
+
+#setwd("yourworkingdirectory")
+
 
 library(data.table) # for fread function, superior for importing large datasets
 library(pracma) # for detrend function
@@ -130,13 +134,10 @@ roughness.correlation <- function(y, ps = res){
     return(sum(m)/(n-1))
   }
   
-  # calculate standard deviation, skewness, two standard deviations above the mean, and effective slope
+  # calculate standard deviation, skewness, 4.4 standard deviations above the mean, and effective slope
   sd <- sd(y)
   sk <- skewness(y)
-  two.sd = abs(quantile(y, probs = 0.95)) # calculate two standard deviations above the mean
-  minima = min(y)
-  maxima = max(y)
-  ran = maxima - minima
+  sd4.4 = sd * 4.4 # calculate 4.4 standard deviations above the mean, used as kz in Forooghi et al. (2017)
   es <- effective.slope(y, dx = ps)
   
   # perform Forooghi et al. (2017) roughness correlation
@@ -147,9 +148,9 @@ roughness.correlation <- function(y, ps = res){
   # calculate Nikuradse equivalent sand roughness ks
   ks <- ksk * sd
   
-  stats <- cbind(sd, sk, two.sd, es, ks, ksk)
+  stats <- cbind(sd, sk, sd4.4, es, ks, ksk)
   
-  colnames(stats) <- c("sd", "sk", "two.sd", "es", "ks", "ksk")
+  colnames(stats) <- c("sd", "sk", "4.4.sd", "es", "ks", "ksk")
   
   return(stats)
   

@@ -30,11 +30,11 @@ roundup <- function(x) 10^ceiling(log10(x))
 rounddown <- function(x) 10^floor(log10(x))
 
 # import flow resistance data from other experiments
-exp1.fr <- read.csv("str_exp1_summary.txt")
-exp2.fr <- read.csv("str_exp2_summary.txt")
-exp3.fr <- read.csv("str_exp3_summary.txt")
-exp4.fr <- read.csv("nar_exp1_summary.txt")
-exp5.fr <- read.csv("nar_exp3_summary.txt")
+exp1.fr <- read.csv("exp1a_summary.txt")
+exp2.fr <- read.csv("exp1b_summary.txt")
+exp3.fr <- read.csv("exp1c_summary.txt")
+exp4.fr <- read.csv("exp2a_summary.txt")
+exp5.fr <- read.csv("exp2b_summary.txt")
 sp.fr <- data.frame(read.csv("hohermuth2018_summary.txt")) # laboraory step-pool experiments from Hohermuth and Weitbrecht (2018)
 
 # combine original experiments conducted in the A-BES together
@@ -42,6 +42,19 @@ pr.fr <- data.frame(rbind(exp1.fr, exp2.fr, exp3.fr, exp4.fr, exp5.fr))
 
 
 ################################################################################################################################
+
+png("colorlegend.png", width = 15, height = 6, units = 'cm', res = 600)
+
+plot(rep(1,n),
+     col = cl, 
+     pch = 19,
+     cex=  2,
+     bty = 'n',
+     xaxt = 'n',
+     yaxt = 'n',
+     ann = FALSE)
+
+dev.off()
 
 
 # FORM SIZE DISTRIBUTION (FSD)
@@ -83,12 +96,8 @@ abline(v = dmax, lty = 2)
 magaxis(xlab = "Wavelength (m)",
         ylab = expression(sigma[z]))
 
-# define legend
-legend("bottomright", bty = "n", inset = c(0.05, 0.05), ncol = 1, lty = 1, 
-       col = c(cl[1], cl[length(cl)/2], cl[length(cl)]), 
-       legend = c(paste(time.cum[1], "mins"), paste(time.cum[length(time.cum)/2], "mins"), paste(time.cum[n], "mins")))
-
 legend("topleft", expression(bold("(a)")), bty="n")
+
 
 
 dev.off()
@@ -140,10 +149,6 @@ abline(v = dmax, lty = 2)
 magaxis(xlab = "Wavelength (m)",
         ylab = expression("Cumulative %" ~  sigma[z]))
 
-legend("bottomright", bty = "n", inset = c(0.05, 0.05), ncol = 1, lty = 1, 
-       col = c(cl[1], cl[length(cl)/2], cl[length(cl)]), 
-       legend = c(paste(time.cum[1], "mins"), paste(time.cum[length(time.cum)/2], "mins"), paste(time.cum[n], "mins")))
-
 legend("topleft", expression(bold("(b)")), bty="n")
 
 dev.off()
@@ -184,10 +189,6 @@ abline(v = dmax, lty = 2)
 magaxis(xlab = "Wavelength (m)",
         ylab = expression(k["s,pred"]))
 
-legend("bottom", bty = "n", inset = c(0.05, 0.05), ncol = 1, lty = 1, 
-       col = c(cl[1], cl[length(cl)/2], cl[length(cl)]), 
-       legend = c(paste(time.cum[1], "mins"), paste(time.cum[length(time.cum)/2], "mins"), paste(time.cum[n], "mins")))
-
 legend("topleft", expression(bold("(a)")), bty="n")
 
 dev.off()
@@ -219,10 +220,6 @@ abline(v = dmax, lty = 2)
 
 magaxis(xlab = "Wavelength (m)",
         ylab = expression("Cumulative %" ~ k["s,pred"]))
-
-legend("bottomright", bty = "n", inset = c(0.05, 0.05), ncol = 1, lty = 1, 
-       col = c(cl[1], cl[length(cl)/2], cl[length(cl)]), 
-       legend = c(paste(time.cum[1], "mins"), paste(time.cum[length(time.cum)/2], "mins"), paste(time.cum[n], "mins")))
 
 legend("topleft", expression(bold("(b)")), bty="n")
 
@@ -271,10 +268,6 @@ abline(v = dmax, lty = 2)
 magaxis(xlab = "Wavelength (m)",
         ylab = "ES")
 
-legend("bottom", bty = "n", inset = c(0.05, 0.05), ncol = 1, lty = 1, 
-       col = c(cl[1], cl[length(cl)/2], cl[length(cl)]), 
-       legend = c(paste(time.cum[1], "mins"), paste(time.cum[length(time.cum)/2], "mins"), paste(time.cum[n], "mins")))
-
 dev.off()
 
 
@@ -320,10 +313,6 @@ abline(v = dmax, lty = 2)
 
 magaxis(xlab = "Wavelength (m)",
         ylab = expression(k[s] / k))
-
-legend("bottom", bty = "n", inset = c(0.05, 0.05), ncol = 1, lty = 1, 
-       col = c(cl[1], cl[length(cl)/2], cl[length(cl)]), 
-       legend = c(paste(time.cum[1], "mins"), paste(time.cum[length(time.cum)/2], "mins"), paste(time.cum[n], "mins")))
 
 dev.off()
 
@@ -457,8 +446,8 @@ ymax <- max(c(pr.sumks, sp.sumks))
 
 plot(pr.ks, pr.sumks, 
      pch = 16,
-     xlim = c(xmin, xmax),
-     ylim = c(ymin, ymax),
+     xlim = c(-9, -2),
+     ylim = c(-9, -2),
      xaxt = 'n',
      yaxt = 'n',
      ann = FALSE)
